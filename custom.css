@@ -582,11 +582,11 @@ body:not(:has(.libraryPage)) .layout-desktop .headerTabs {
 	top: 0 !important;
 	left: 0 !important;
 	width: 100% !important;
-	height: 56.25vw !important;
-	min-height: 480px !important;
-	max-height: 82vh !important;
+	height: min(56.25vw, 78vh) !important;
+	min-height: 420px !important;
+	max-height: 78vh !important;
 	background-size: cover !important;
-	background-position: center 20% !important;
+	background-position: center 18% !important;
 	background-repeat: no-repeat !important;
 	z-index: 0 !important;
 	pointer-events: none !important;
@@ -632,8 +632,10 @@ body:not(:has(.libraryPage)) .layout-desktop .headerTabs {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background: linear-gradient(to right, rgba(16, 16, 16, 0.95) 0%, rgba(16, 16, 16, 0.6) 28%, rgba(16, 16, 16, 0.08) 55%, transparent 85%),
-	            linear-gradient(to top, #101010 0%, rgba(16, 16, 16, 0.85) 15%, rgba(16, 16, 16, 0.45) 30%, transparent 60%);
+	/* Könnyebb scrim: a backdrop maradjon látható, csak a szöveg/gombok alatt legyen olvasható */
+	background:
+		linear-gradient(to right, rgba(16, 16, 16, 0.55) 0%, rgba(16, 16, 16, 0.22) 32%, rgba(16, 16, 16, 0.04) 58%, transparent 78%),
+		linear-gradient(to top, #101010 0%, rgba(16, 16, 16, 0.72) 10%, rgba(16, 16, 16, 0.28) 28%, rgba(16, 16, 16, 0.08) 48%, transparent 72%);
 	z-index: 2 !important;
 	pointer-events: none;
 }
@@ -730,19 +732,20 @@ body:not(:has(.libraryPage)) .layout-desktop .headerTabs {
 	margin-left: 0 !important;
 }
 
-/* 4.4 Tartalom magassága — logó+meta+Play a hero ALJÁN, együtt */
+/* 4.4 Tartalom magassága — logó+meta+Play a hero alsó harmadában, nem a legalsó sávban */
 .itemDetailPage .detailRibbon,
 .layout-desktop .itemDetailPage .detailRibbon,
 .layout-mobile .itemDetailPage .detailRibbon,
 .layout-tv .itemDetailPage .detailRibbon {
-	min-height: 56.25vw !important;
-	height: 56.25vw !important;
-	max-height: 82vh !important;
+	min-height: min(56.25vw, 78vh) !important;
+	height: min(56.25vw, 78vh) !important;
+	max-height: 78vh !important;
 	display: flex !important;
 	flex-direction: column !important;
 	justify-content: flex-end !important;
 	align-items: flex-start !important;
-	padding-bottom: 5.2rem !important;
+	padding-top: 4rem !important;
+	padding-bottom: 2.4rem !important;
 	margin: 0 !important;
 	box-sizing: border-box !important;
 	position: relative !important;
@@ -815,7 +818,7 @@ body:not(:has(.libraryPage)) .layout-desktop .headerTabs {
 	font-size: 2.6rem !important;
 	font-weight: 800 !important;
 	color: #ffffff !important;
-	text-shadow: 0 2px 14px rgba(0, 0, 0, 0.95) !important;
+	text-shadow: 0 2px 10px rgba(0, 0, 0, 0.65) !important;
 	margin: 0 0 0.6rem 0 !important;
 	margin-left: 0 !important;
 	padding-left: 0 !important;
@@ -823,6 +826,11 @@ body:not(:has(.libraryPage)) .layout-desktop .headerTabs {
 	line-height: 1.15 !important;
 	text-align: left !important;
 	align-self: flex-start !important;
+	max-width: min(42rem, 70vw) !important;
+}
+
+.itemDetailPage .infoWrapper {
+	max-width: min(46rem, 72vw) !important;
 }
 
 .itemDetailPage .parentName {
@@ -995,10 +1003,11 @@ body:not(:has(.libraryPage)) .layout-desktop .headerTabs {
 
 /* 4.9 Track választók és Alsó szekciók (.detailPageSecondaryContainer) */
 .itemDetailPage .detailPagePrimaryContent {
-	padding-top: 1.5rem !important;
+	padding-top: 0.6rem !important;
 	padding-bottom: 2rem !important;
 	position: relative !important;
 	z-index: 3 !important;
+	background: transparent !important;
 }
 
 .itemDetailPage .trackSelections {
