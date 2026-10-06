@@ -1,0 +1,1039 @@
+/* Jellyfin theme override
+   Betöltés: Dashboard → Branding → Custom CSS:
+   @import url("https://jellyfin.devizapp.hu/custom.css");
+*/
+
+
+/* --- 1. Fejléc: összecsúszás megszüntetése és tiszta navigáció --- */
+.headerTabs,
+.headerTabs.sectionTabs {
+	margin-top: 0 !important;
+	position: static !important;
+	align-self: center !important;
+}
+
+/* Desktopon a főoldalon (ahol balra már kint van a teljes könyvtársor) a duplikált fül-sáv elrejtése; könyvtárakban viszont látható */
+body:not(:has(.libraryPage)) .layout-desktop .headerTabs {
+	display: none !important;
+}
+
+/* TV fejléc: egyetlen kompakt sorban (balra logó, középen fülek, jobbra profil/óra) */
+.layout-tv .skinHeader {
+	position: relative !important;
+	height: 4rem !important;
+	max-height: 4rem !important;
+	display: flex !important;
+	flex-direction: column !important;
+	justify-content: center !important;
+}
+
+.layout-tv .headerTop {
+	width: 100% !important;
+	height: 100% !important;
+	display: flex !important;
+	flex-direction: row !important;
+	align-items: center !important;
+	justify-content: space-between !important;
+	padding: 0 1.5rem !important;
+	box-sizing: border-box !important;
+}
+
+.layout-tv .headerTabs,
+.layout-tv .headerTabs.sectionTabs {
+	position: absolute !important;
+	top: 50% !important;
+	left: 50% !important;
+	transform: translate(-50%, -50%) !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	width: auto !important;
+	max-width: 60% !important;
+	z-index: 10 !important;
+	display: flex !important;
+	justify-content: center !important;
+}
+
+.layout-tv .headerTabs .emby-tabs,
+.layout-tv .headerTabs .emby-tabs-slider {
+	display: flex !important;
+	flex-direction: row !important;
+	flex-wrap: nowrap !important;
+	align-items: center !important;
+	justify-content: center !important;
+}
+
+.layout-tv .headerTabs .emby-tab-button {
+	padding: 0.4em 0.8em !important;
+	flex-shrink: 0 !important;
+}
+
+/* TV módban a negatív margók megszüntetése */
+.layout-tv .padded-top-focusscale {
+	margin-top: 0 !important;
+}
+
+/* --- 2. Listák / kártyák: egységes lekerekítés --- */
+.cardBox,
+.cardContent,
+.cardContent-button,
+.cardImageContainer,
+.cardOverlayContainer,
+.cardPadder,
+.blurhash-canvas,
+.visualCardBox {
+	border-radius: 12px !important;
+}
+
+.visualCardBox .cardContent,
+.visualCardBox .cardOverlayContainer,
+.visualCardBox .blurhash-canvas {
+	border-bottom-left-radius: 0 !important;
+	border-bottom-right-radius: 0 !important;
+}
+
+/* --- 3. Desktop hover --- */
+/* overflow: clip — nem hoz létre scroll containert (a hidden igen, az TV fókusz-görgetést törheti) */
+
+.layout-desktop .card {
+	overflow: visible !important;
+	margin: 0.4em !important;
+}
+
+.layout-desktop .cardBox {
+	overflow: visible !important;
+	padding: 8px !important;
+	margin: 0 !important;
+	background: transparent !important;
+}
+
+.layout-desktop .card .cardScalable {
+	overflow: clip !important;
+	border-radius: 12px !important;
+	outline: 2.5px solid transparent !important;
+	outline-offset: 3px !important;
+	transition: outline-color 0.32s ease !important;
+}
+
+.layout-desktop .card .cardContent,
+.layout-desktop .card .cardImageContainer,
+.layout-desktop .card .cardContent-button,
+.layout-desktop .card .blurhash-canvas {
+	transform: scale(1);
+	transform-origin: center center !important;
+	transition: transform 0.32s ease !important;
+	outline: none !important;
+	border-radius: 12px !important;
+}
+
+.layout-desktop .cardText,
+.layout-desktop .cardText-first,
+.layout-desktop .cardFooter {
+	outline: none !important;
+}
+
+.layout-desktop .card-hoverable:hover .cardScalable,
+.layout-desktop .card:hover .cardScalable {
+	outline-color: #fff !important;
+	z-index: 2 !important;
+}
+
+.layout-desktop .card-hoverable:hover .cardContent,
+.layout-desktop .card:hover .cardContent,
+.layout-desktop .card-hoverable:hover .cardImageContainer,
+.layout-desktop .card:hover .cardImageContainer,
+.layout-desktop .card-hoverable:hover .cardContent-button,
+.layout-desktop .card:hover .cardContent-button,
+.layout-desktop .card-hoverable:hover .blurhash-canvas,
+.layout-desktop .card:hover .blurhash-canvas {
+	transform: scale(1.06) !important;
+}
+
+/* --- 4. TV mód: minden kártya fókusz egységesen (mint a desktop hover) --- */
+.layout-tv .card {
+	overflow: visible !important;
+	margin: 0.4em !important;
+	scroll-margin-block: 20vh !important;
+	scroll-margin-inline: 2em !important;
+}
+
+.layout-tv .cardBox {
+	overflow: visible !important;
+	padding: 8px !important;
+	margin: 0 !important;
+	background: transparent !important;
+}
+
+/* Jellyfin natív TV méretezések és keretek kikapcsolása a kártyadobozról */
+.layout-tv .card.show-animation:focus > .cardBox,
+.layout-tv .card.show-focus:focus > .cardBox,
+.layout-tv .card:focus > .cardBox,
+.layout-tv .card:focus-within > .cardBox {
+	transform: none !important;
+	border: none !important;
+	box-shadow: none !important;
+	outline: none !important;
+}
+
+.layout-tv .card .cardScalable {
+	overflow: clip !important;
+	border-radius: 12px !important;
+	outline: 2.5px solid transparent !important;
+	outline-offset: 3px !important;
+	transition: outline-color 0.32s ease !important;
+}
+
+.layout-tv .card .cardContent,
+.layout-tv .card .cardImageContainer,
+.layout-tv .card .cardContent-button,
+.layout-tv .card .blurhash-canvas {
+	transform: scale(1);
+	transform-origin: center center !important;
+	transition: transform 0.32s ease !important;
+	outline: none !important;
+	border-radius: 12px !important;
+}
+
+.layout-tv .cardText,
+.layout-tv .cardText-first,
+.layout-tv .cardFooter {
+	outline: none !important;
+}
+
+/* Fókuszba került kártya: lebegő outline + belső kép zoom */
+.layout-tv .card:focus .cardScalable,
+.layout-tv .card:focus-within .cardScalable,
+.layout-tv .card.show-focus:focus .cardScalable,
+.layout-tv .card.show-animation:focus .cardScalable {
+	outline-color: #fff !important;
+	z-index: 3 !important;
+}
+
+.layout-tv .card:focus .cardContent,
+.layout-tv .card:focus-within .cardContent,
+.layout-tv .card.show-focus:focus .cardContent,
+.layout-tv .card.show-animation:focus .cardContent,
+.layout-tv .card:focus .cardImageContainer,
+.layout-tv .card:focus-within .cardImageContainer,
+.layout-tv .card:focus .cardContent-button,
+.layout-tv .card:focus-within .cardContent-button,
+.layout-tv .card:focus .blurhash-canvas,
+.layout-tv .card:focus-within .blurhash-canvas {
+	transform: scale(1.06) !important;
+}
+
+/* Egyéb TV elemek fókusz: gombok, lapfülek, menüpontok, lista elemek (nem kártyák) */
+.layout-tv .emby-button:focus,
+.layout-tv .emby-tab-button:focus,
+.layout-tv .listItem:focus,
+.layout-tv .navMenuOption:focus {
+	outline: none !important;
+	border: 2px solid #fff !important;
+	border-radius: 8px !important;
+	box-shadow: none !important;
+	transform: none !important;
+}
+
+.layout-tv .card .emby-button:focus {
+	border: none !important;
+}
+
+/* --- 5. Netflix-stílusú Hero Banner & Automata előzetes --- */
+.hero-banner {
+	position: relative;
+	width: calc(100% - 6.6%) !important;
+	margin: 0 3.3% 1.8rem 3.3% !important;
+	height: 58vh;
+	min-height: 380px;
+	max-height: 580px;
+	overflow: hidden;
+	border-radius: 16px;
+	border: 1px solid rgba(255, 255, 255, 0.14);
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.08);
+	background-color: #141414;
+	contain: layout style;
+}
+
+@supports (width: max(1px, 1px)) {
+	.hero-banner {
+		margin-left: max(env(safe-area-inset-left), 3.3%) !important;
+		margin-right: max(env(safe-area-inset-right), 3.3%) !important;
+		width: calc(100% - max(env(safe-area-inset-left), 3.3%) - max(env(safe-area-inset-right), 3.3%)) !important;
+	}
+}
+
+.layout-desktop .hero-banner {
+	margin-top: 0 !important;
+	height: 58vh;
+	max-height: 580px;
+}
+
+.layout-tv .hero-banner {
+	height: 60vh;
+	max-height: 600px;
+	border-radius: 18px;
+}
+
+.hero-media-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+.hero-backdrop {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	background-position: center 20%;
+	opacity: 0;
+	transition: opacity 0.8s ease-in-out;
+	z-index: 1;
+}
+
+.hero-backdrop.active {
+	opacity: 1;
+}
+
+/* Videó lejátszásakor a statikus háttérképet elrejtjük, hogy véletlenül se lógjon ki 1 pixelben sem */
+.hero-banner.is-playing .hero-backdrop {
+	opacity: 0 !important;
+}
+
+.hero-video-wrapper {
+	position: absolute;
+	top: -2px;
+	left: -2px;
+	width: calc(100% + 4px);
+	height: calc(100% + 4px);
+	overflow: hidden;
+}
+
+.hero-video {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	pointer-events: none;
+	border: none;
+}
+
+.hero-youtube-iframe {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 102vw;
+	height: 57.5vw;
+	min-height: calc(100% + 8px);
+	min-width: 182vh;
+	transform: translate(-50%, -50%);
+	pointer-events: none;
+	border: none;
+}
+
+.hero-gradient-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: 
+		linear-gradient(0deg, #101010 0%, rgba(16, 16, 16, 0.45) 45%, rgba(16, 16, 16, 0) 100%),
+		linear-gradient(90deg, #101010 0%, rgba(16, 16, 16, 0.75) 35%, rgba(16, 16, 16, 0) 80%);
+	pointer-events: none;
+	z-index: 2;
+	transition: opacity 0.8s ease-in-out;
+}
+
+/* Videó lejátszásakor a sötétítés teljesen eltűnik a tiszta kép érdekében */
+.hero-banner.is-playing .hero-gradient-overlay {
+	opacity: 0 !important;
+}
+
+.hero-info-container {
+	position: absolute;
+	left: 3rem;
+	bottom: 3.5rem;
+	max-width: 48%;
+	z-index: 5;
+	display: flex;
+	flex-direction: column;
+	gap: 0.8rem;
+	transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+	transform: translateY(0);
+	opacity: 1;
+}
+
+/* Tiszta mozis mód (Fade-out): videó lejátszáskor eltűnik minden felirat és logó */
+.hero-banner.media-hidden .hero-info-container,
+.hero-banner.media-hidden .hero-indicators {
+	opacity: 0 !important;
+	transform: translateY(20px) !important;
+	pointer-events: none !important;
+}
+
+.hero-logo-container {
+	min-height: 60px;
+	display: flex;
+	align-items: flex-end;
+}
+
+.hero-logo {
+	max-width: 340px;
+	max-height: 130px;
+	object-fit: contain;
+	object-position: left bottom;
+	filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.9));
+}
+
+.hero-title {
+	font-size: 2.6rem;
+	font-weight: 800;
+	color: #fff;
+	margin: 0;
+	line-height: 1.15;
+	text-shadow: 0 3px 12px rgba(0, 0, 0, 0.9);
+}
+
+.hero-meta {
+	display: flex;
+	gap: 1rem;
+	align-items: center;
+	font-size: 0.95rem;
+	font-weight: 600;
+	color: #e0e0e0;
+}
+
+.hero-rating {
+	color: #ffd700;
+	background: rgba(0, 0, 0, 0.65);
+	padding: 0.2rem 0.6rem;
+	border-radius: 6px;
+	border: 1px solid rgba(255, 215, 0, 0.4);
+}
+
+.hero-overview {
+	font-size: 0.98rem;
+	line-height: 1.45;
+	color: rgba(255, 255, 255, 0.88);
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9);
+}
+
+.hero-actions {
+	display: flex;
+	gap: 1rem;
+	margin-top: 0.4rem;
+}
+
+.hero-btn {
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	gap: 0.5rem !important;
+	padding: 0.75rem 1.6rem !important;
+	border-radius: 10px !important;
+	font-weight: 700 !important;
+	font-size: 1.05rem !important;
+	cursor: pointer !important;
+	border: none !important;
+	transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, outline 0.2s ease !important;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
+}
+
+.hero-btn .material-icons {
+	font-size: 1.4rem !important;
+}
+
+.hero-btn-play {
+	background-color: #fff !important;
+	color: #111 !important;
+}
+
+.hero-btn-play:hover {
+	background-color: rgba(255, 255, 255, 0.85) !important;
+	transform: scale(1.04) !important;
+}
+
+.hero-btn-details {
+	background-color: rgba(255, 255, 255, 0.22) !important;
+	color: #fff !important;
+	backdrop-filter: blur(10px) !important;
+}
+
+.hero-btn-details:hover {
+	background-color: rgba(255, 255, 255, 0.32) !important;
+	transform: scale(1.04) !important;
+}
+
+/* TV & Desktop billentyűzet fókusz a Hero gombokon */
+.hero-btn:focus {
+	outline: 3px solid #fff !important;
+	outline-offset: 3px !important;
+	transform: scale(1.06) !important;
+	z-index: 10 !important;
+}
+
+/* Jobb alsó vezérlősáv: Pagination + Nyílgombok egy vonalban a bal oldali gombokkal */
+.hero-controls-bar {
+	position: absolute;
+	right: 2.5rem;
+	bottom: 3.7rem;
+	display: flex;
+	align-items: center;
+	gap: 1.2rem;
+	z-index: 6;
+	transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+	transform: translateY(0);
+}
+
+.hero-indicators {
+	display: flex;
+	gap: 0.5rem;
+	align-items: center;
+}
+
+.hero-indicator {
+	width: 22px;
+	height: 4px;
+	border-radius: 2px;
+	background: rgba(255, 255, 255, 0.35);
+	cursor: pointer;
+	transition: background 0.3s ease, width 0.3s ease;
+}
+
+.hero-indicator.active {
+	background: #fff;
+	width: 36px;
+}
+
+.hero-nav-arrows {
+	display: flex;
+	gap: 0.5rem;
+	align-items: center;
+}
+
+/* Dia léptető nyílgombok a pagination után */
+.hero-nav-btn {
+	position: static !important;
+	transform: none !important;
+	width: 2.6rem !important;
+	height: 2.6rem !important;
+	min-width: 2.6rem !important;
+	padding: 0 !important;
+	border-radius: 50% !important;
+	background-color: rgba(0, 0, 0, 0.55) !important;
+	color: #fff !important;
+	border: 1px solid rgba(255, 255, 255, 0.25) !important;
+	backdrop-filter: blur(8px) !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	cursor: pointer !important;
+	transition: transform 0.2s ease, background-color 0.2s ease, outline 0.2s ease !important;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
+}
+
+.hero-nav-btn .material-icons {
+	font-size: 1.7rem !important;
+}
+
+.hero-nav-btn:hover {
+	background-color: rgba(255, 255, 255, 0.25) !important;
+	transform: scale(1.08) !important;
+}
+
+.hero-nav-btn:focus {
+	outline: 2px solid #fff !important;
+	outline-offset: 2px !important;
+	background-color: rgba(255, 255, 255, 0.35) !important;
+	transform: scale(1.08) !important;
+}
+
+/* Tiszta mozis módban a teljes jobb alsó vezérlősáv elhalványul */
+.hero-banner.media-hidden .hero-controls-bar {
+	opacity: 0 !important;
+	transform: translateY(15px) !important;
+	pointer-events: none !important;
+}
+
+/* ==========================================================================
+   4. TARTALOM RÉSZLETEK OLDAL (.itemDetailPage) — NETFLIX / HERO BANNER STÍLUS
+   ========================================================================== */
+
+.itemDetailPage {
+	position: relative !important;
+	padding-top: 3.8rem !important;
+	background-color: #101010 !important;
+	min-height: 100vh !important;
+	box-sizing: border-box !important;
+}
+
+/* 4.1 Fix 16:9 képarányú Mozis Hero Háttérkép (.detail-hero-backdrop) és Előzetes Videó */
+.itemDetailPage .detail-hero-backdrop {
+	position: absolute !important;
+	top: 0 !important;
+	left: 0 !important;
+	width: 100% !important;
+	height: 56.25vw !important;
+	min-height: 480px !important;
+	max-height: 82vh !important;
+	background-size: cover !important;
+	background-position: center 20% !important;
+	background-repeat: no-repeat !important;
+	z-index: 0 !important;
+	pointer-events: none !important;
+	overflow: hidden !important;
+}
+
+.itemDetailPage .detail-hero-backdrop .detail-video-wrapper {
+	position: absolute !important;
+	top: 0 !important;
+	left: 0 !important;
+	width: 100% !important;
+	height: 100% !important;
+	overflow: hidden !important;
+	z-index: 1 !important;
+	pointer-events: none !important;
+}
+
+.itemDetailPage .detail-hero-video {
+	position: absolute !important;
+	top: 50% !important;
+	left: 50% !important;
+	width: 100% !important;
+	height: 100% !important;
+	min-width: 100% !important;
+	min-height: 100% !important;
+	transform: translate(-50%, -50%) scale(1.3) !important;
+	object-fit: cover !important;
+	pointer-events: none !important;
+	border: none !important;
+	opacity: 0;
+	transition: opacity 1.2s ease-in-out !important;
+	z-index: 1 !important;
+}
+
+.itemDetailPage .detail-hero-video.is-active {
+	opacity: 1 !important;
+}
+
+.itemDetailPage .detail-hero-backdrop::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: linear-gradient(to right, rgba(16, 16, 16, 0.95) 0%, rgba(16, 16, 16, 0.6) 28%, rgba(16, 16, 16, 0.08) 55%, transparent 85%),
+	            linear-gradient(to top, #101010 0%, rgba(16, 16, 16, 0.85) 15%, rgba(16, 16, 16, 0.45) 30%, transparent 60%);
+	z-index: 2 !important;
+	pointer-events: none;
+}
+
+/* Gyári elavult háttérkép és lebegő poszter elrejtése a fejlécből */
+.itemDetailPage .itemBackdrop,
+.itemDetailPage .detailImageContainer,
+.itemDetailPage .detailImageContainer * {
+	display: none !important;
+}
+
+/* 4.3 Margók harmonizálása: szigorúan egységes 4.2rem bal margó a fejléc elemeihez */
+.itemDetailPage .detailRibbon,
+.itemDetailPage .detailPagePrimaryContent,
+.itemDetailPage .detailPageSecondaryContainer,
+.layout-desktop .detailRibbon,
+.layout-mobile .detailRibbon,
+.layout-tv .detailRibbon,
+.layout-desktop [dir=ltr] .detailRibbon,
+.layout-desktop [dir=rtl] .detailRibbon,
+.layout-mobile [dir=ltr] .detailRibbon,
+.layout-mobile [dir=rtl] .detailRibbon,
+.layout-tv [dir=ltr] .detailRibbon,
+.layout-tv [dir=rtl] .detailRibbon,
+.itemDetailPage .detailRibbon,
+[dir] .itemDetailPage .detailRibbon,
+[dir] .itemDetailPage .detailPagePrimaryContent,
+[dir] .itemDetailPage .detailPageSecondaryContainer {
+	padding-left: 4.2rem !important;
+	padding-right: 4.2rem !important;
+	margin-left: 0 !important;
+	box-sizing: border-box !important;
+	position: relative !important;
+	z-index: 3 !important;
+}
+
+/* Az infoWrapper, a logó, a cím, a metaadatok és a gombsor PONTOSAN ugyanannál a bal szélnél (0 margin/padding a ribbonon belül) */
+.infoWrapper,
+.itemDetailPage .infoWrapper,
+.layout-mobile .infoWrapper,
+.layout-desktop .infoWrapper,
+.layout-tv .infoWrapper,
+[dir=ltr] .infoWrapper,
+[dir=rtl] .infoWrapper,
+.layout-mobile [dir=ltr] .infoWrapper,
+.layout-mobile [dir=rtl] .infoWrapper,
+.layout-desktop [dir=ltr] .infoWrapper,
+.layout-desktop [dir=rtl] .infoWrapper,
+.layout-tv [dir=ltr] .infoWrapper,
+.layout-tv [dir=rtl] .infoWrapper,
+.itemDetailPage .nameContainer,
+.itemDetailPage .itemMiscInfo,
+.itemDetailPage .mainDetailButtons,
+.itemDetailPage .custom-detail-logo,
+.itemDetailPage .infoText,
+.itemDetailPage .itemName,
+.itemDetailPage .parentName,
+[dir] .itemDetailPage .infoWrapper,
+[dir] .itemDetailPage .nameContainer,
+[dir] .itemDetailPage .itemMiscInfo,
+[dir] .itemDetailPage .mainDetailButtons,
+[dir] .itemDetailPage .custom-detail-logo,
+[dir] .itemDetailPage .infoText,
+[dir] .itemDetailPage .itemName,
+.layout-desktop .itemDetailPage .infoWrapper,
+.layout-mobile .itemDetailPage .infoWrapper,
+.layout-tv .itemDetailPage .infoWrapper {
+	padding-left: 0 !important;
+	margin-left: 0 !important;
+	padding-right: 0 !important;
+	margin-right: auto !important;
+	align-items: flex-start !important;
+	align-self: flex-start !important;
+	justify-content: flex-start !important;
+	text-align: left !important;
+}
+
+.layout-mobile .itemMiscInfo,
+.layout-mobile .itemName,
+.layout-mobile .mainDetailButtons,
+.layout-mobile .parentName,
+.layout-desktop .itemMiscInfo,
+.layout-desktop .itemName,
+.layout-desktop .mainDetailButtons,
+.layout-desktop .parentName,
+.layout-tv .itemMiscInfo,
+.layout-tv .itemName,
+.layout-tv .mainDetailButtons,
+.layout-tv .parentName {
+	justify-content: flex-start !important;
+	text-align: left !important;
+	align-items: flex-start !important;
+	padding-left: 0 !important;
+	margin-left: 0 !important;
+}
+
+/* 4.4 Tartalom magassága — logó+meta+Play a hero ALJÁN, együtt */
+.itemDetailPage .detailRibbon,
+.layout-desktop .itemDetailPage .detailRibbon,
+.layout-mobile .itemDetailPage .detailRibbon,
+.layout-tv .itemDetailPage .detailRibbon {
+	min-height: 56.25vw !important;
+	height: 56.25vw !important;
+	max-height: 82vh !important;
+	display: flex !important;
+	flex-direction: column !important;
+	justify-content: flex-end !important;
+	align-items: flex-start !important;
+	padding-bottom: 5.2rem !important;
+	margin: 0 !important;
+	box-sizing: border-box !important;
+	position: relative !important;
+	z-index: 3 !important;
+}
+
+/* Az infoWrapper ne nőjön ki a teljes hero magasságra — így a logó a Play fölött marad */
+.itemDetailPage .infoWrapper,
+.layout-desktop .itemDetailPage .infoWrapper,
+.layout-mobile .itemDetailPage .infoWrapper,
+.layout-tv .itemDetailPage .infoWrapper,
+[dir] .itemDetailPage .infoWrapper {
+	flex: 0 0 auto !important;
+	flex-grow: 0 !important;
+	flex-shrink: 0 !important;
+	margin-top: auto !important;
+	width: auto !important;
+	max-width: 100% !important;
+}
+
+.itemDetailPage .mainDetailButtons {
+	flex: 0 0 auto !important;
+	margin-top: 0 !important;
+}
+
+/* 4.5 Hivatalos logó (.custom-detail-logo) és Cím (.itemName) — szigorúan balra zártan a gombok felett */
+.itemDetailPage .custom-detail-logo {
+	display: none;
+	width: 340px !important;
+	max-width: 75vw !important;
+	height: 100px !important;
+	background-position: left center !important;
+	background-size: contain !important;
+	background-repeat: no-repeat !important;
+	margin: 0 0 0.8rem 0 !important;
+	margin-left: 0 !important;
+	margin-right: auto !important;
+	padding: 0 !important;
+	padding-left: 0 !important;
+	align-self: flex-start !important;
+	filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.95)) !important;
+}
+
+.itemDetailPage.has-detail-logo .custom-detail-logo {
+	display: block !important;
+}
+
+/* Ha a logó aktív, elrejtjük a szöveges címet */
+.itemDetailPage.has-detail-logo .nameContainer .itemName {
+	display: none !important;
+}
+
+/* A gyári rosszul pozícionált detailLogo-t elrejtjük */
+.itemDetailPage .detailLogo {
+	display: none !important;
+}
+
+.itemDetailPage .nameContainer {
+	margin: 0 0 0.6rem 0 !important;
+	margin-left: 0 !important;
+	margin-right: auto !important;
+	padding: 0 !important;
+	padding-left: 0 !important;
+	align-self: flex-start !important;
+	align-items: flex-start !important;
+	text-align: left !important;
+}
+
+.itemDetailPage .nameContainer .itemName {
+	font-size: 2.6rem !important;
+	font-weight: 800 !important;
+	color: #ffffff !important;
+	text-shadow: 0 2px 14px rgba(0, 0, 0, 0.95) !important;
+	margin: 0 0 0.6rem 0 !important;
+	margin-left: 0 !important;
+	padding-left: 0 !important;
+	letter-spacing: -0.02em !important;
+	line-height: 1.15 !important;
+	text-align: left !important;
+	align-self: flex-start !important;
+}
+
+.itemDetailPage .parentName {
+	font-size: 1.1rem !important;
+	color: rgba(255, 255, 255, 0.75) !important;
+	font-weight: 600 !important;
+	margin-bottom: 0.3rem !important;
+	margin-left: 0 !important;
+	padding-left: 0 !important;
+	text-align: left !important;
+	align-self: flex-start !important;
+}
+
+/* 4.6 Metaadat sáv (.itemMiscInfo) — szigorúan a logó alatt és a gombok felett */
+.itemDetailPage .itemMiscInfo,
+.layout-mobile .itemDetailPage .itemMiscInfo,
+.layout-desktop .itemDetailPage .itemMiscInfo,
+.layout-tv .itemDetailPage .itemMiscInfo,
+.layout-mobile [dir=ltr] .itemMiscInfo,
+.layout-desktop [dir=ltr] .itemMiscInfo,
+.layout-tv [dir=ltr] .itemMiscInfo {
+	display: flex !important;
+	flex-wrap: wrap !important;
+	align-items: center !important;
+	justify-content: flex-start !important;
+	align-self: flex-start !important;
+	text-align: left !important;
+	gap: 0.65rem !important;
+	font-size: 0.95rem !important;
+	font-weight: 500 !important;
+	color: rgba(255, 255, 255, 0.85) !important;
+	margin: 0 0 1.2rem 0 !important;
+	margin-left: 0 !important;
+	margin-right: auto !important;
+	padding: 0 !important;
+	padding-left: 0 !important;
+	width: auto !important;
+	max-width: 100% !important;
+}
+
+.itemDetailPage .mediaInfoItem {
+	background: rgba(255, 255, 255, 0.15) !important;
+	color: #fff !important;
+	padding: 0.2rem 0.55rem !important;
+	border-radius: 4px !important;
+	font-size: 0.82rem !important;
+	font-weight: 600 !important;
+	border: 1px solid rgba(255, 255, 255, 0.25) !important;
+	letter-spacing: 0.04em !important;
+}
+
+.itemDetailPage .starRatingContainer {
+	color: #e5a00d !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	font-weight: 700 !important;
+	gap: 0.25rem !important;
+}
+
+/* 4.7 Gombsor (.mainDetailButtons) — szigorúan a metaadatok alatt */
+.itemDetailPage .mainDetailButtons {
+	display: flex !important;
+	flex-direction: row !important;
+	flex-wrap: wrap !important;
+	align-items: center !important;
+	gap: 0.75rem !important;
+	margin: 0 0 1.4rem 0 !important;
+	padding: 0 !important;
+	width: 100% !important;
+}
+
+/* Elsődleges Lejátszás gomb: kiemelt fehér */
+.itemDetailPage .btnPlaySimple,
+.itemDetailPage .btnPlay {
+	background-color: #ffffff !important;
+	color: #111111 !important;
+	border-radius: 8px !important;
+	padding: 0.75rem 1.6rem !important;
+	font-size: 1.05rem !important;
+	font-weight: 700 !important;
+	display: inline-flex !important;
+	flex-direction: row !important;
+	align-items: center !important;
+	justify-content: center !important;
+	gap: 0.5rem !important;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5) !important;
+	transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, outline 0.2s ease !important;
+	cursor: pointer !important;
+	border: none !important;
+	margin: 0 !important;
+}
+
+.itemDetailPage .btnPlaySimple .detailButton-content,
+.itemDetailPage .btnPlay .detailButton-content {
+	display: flex !important;
+	flex-direction: row !important;
+	align-items: center !important;
+	justify-content: center !important;
+	gap: 0.5rem !important;
+}
+
+.itemDetailPage .btnPlaySimple .detailButton-icon,
+.itemDetailPage .btnPlay .detailButton-icon {
+	font-size: 1.5rem !important;
+	color: #111111 !important;
+	margin: 0 !important;
+}
+
+.itemDetailPage .btnPlaySimple .detailButton-text,
+.itemDetailPage .btnPlay .detailButton-text {
+	font-size: 1rem !important;
+	font-weight: 700 !important;
+	color: #111111 !important;
+	margin-top: 0 !important;
+}
+
+.itemDetailPage .btnPlaySimple:hover,
+.itemDetailPage .btnPlaySimple:focus,
+.itemDetailPage .btnPlay:hover,
+.itemDetailPage .btnPlay:focus {
+	background-color: #e6e6e6 !important;
+	transform: scale(1.05) !important;
+	outline: 3px solid #ffffff !important;
+	outline-offset: 2px !important;
+	box-shadow: 0 6px 20px rgba(255, 255, 255, 0.35) !important;
+}
+
+/* Másodlagos gombok: sötét üveg / blur */
+.itemDetailPage .detailButton:not(.btnPlaySimple):not(.btnPlay) {
+	background-color: rgba(255, 255, 255, 0.15) !important;
+	color: #ffffff !important;
+	border-radius: 8px !important;
+	backdrop-filter: blur(10px) !important;
+	-webkit-backdrop-filter: blur(10px) !important;
+	border: 1px solid rgba(255, 255, 255, 0.2) !important;
+	padding: 0.65rem 1rem !important;
+	min-width: 2.8rem !important;
+	transition: transform 0.2s ease, background-color 0.2s ease, outline 0.2s ease !important;
+	cursor: pointer !important;
+}
+
+.itemDetailPage .detailButton:not(.btnPlaySimple):not(.btnPlay) .detailButton-content {
+	flex-direction: row !important;
+	gap: 0.4rem !important;
+}
+
+.itemDetailPage .detailButton:not(.btnPlaySimple):not(.btnPlay) .detailButton-text {
+	margin-top: 0 !important;
+	font-size: 0.9rem !important;
+	font-weight: 500 !important;
+}
+
+.itemDetailPage .detailButton:not(.btnPlaySimple):not(.btnPlay):hover,
+.itemDetailPage .detailButton:not(.btnPlaySimple):not(.btnPlay):focus {
+	background-color: rgba(255, 255, 255, 0.3) !important;
+	transform: scale(1.06) !important;
+	outline: 2px solid #ffffff !important;
+	outline-offset: 2px !important;
+}
+
+/* 4.8 Leírás (.itemOverview) */
+.itemDetailPage .itemOverview {
+	max-width: 820px !important;
+	line-height: 1.6 !important;
+	font-size: 1.05rem !important;
+	color: rgba(255, 255, 255, 0.88) !important;
+	text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8) !important;
+	margin: 0.6rem 0 1.4rem 0 !important;
+}
+
+/* 4.9 Track választók és Alsó szekciók (.detailPageSecondaryContainer) */
+.itemDetailPage .detailPagePrimaryContent {
+	padding-top: 1.5rem !important;
+	padding-bottom: 2rem !important;
+	position: relative !important;
+	z-index: 3 !important;
+}
+
+.itemDetailPage .trackSelections {
+	max-width: 580px !important;
+	margin: 0.8rem 0 1.6rem 0 !important;
+}
+
+.itemDetailPage .trackSelections .selectContainer {
+	background: rgba(255, 255, 255, 0.08) !important;
+	border: 1px solid rgba(255, 255, 255, 0.16) !important;
+	border-radius: 8px !important;
+	padding: 0.35rem 0.8rem !important;
+	margin-bottom: 0.6rem !important;
+	backdrop-filter: blur(12px) !important;
+	-webkit-backdrop-filter: blur(12px) !important;
+	transition: border-color 0.2s ease, background 0.2s ease !important;
+}
+
+.itemDetailPage .trackSelections .selectContainer:focus-within {
+	border-color: #ffffff !important;
+	background: rgba(255, 255, 255, 0.18) !important;
+	box-shadow: 0 0 12px rgba(255, 255, 255, 0.25) !important;
+}
+
+.itemDetailPage .detailsGroupItem {
+	margin-top: 0.6rem !important;
+}
+
+.itemDetailPage .detailPageSecondaryContainer {
+	margin-top: 2rem !important;
+	position: relative !important;
+	z-index: 2 !important;
+}
+
+
+
+
+
